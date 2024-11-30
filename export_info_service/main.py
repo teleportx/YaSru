@@ -1,10 +1,13 @@
 import sys
 
+
 sys.path.append('..')
 
 from datetime import datetime
 
 from aiogram.types import BufferedInputFile
+from aiogram.client.default import DefaultBotProperties
+
 from tortoise.expressions import Q
 
 from db.ToiletSessions import SretSession
@@ -61,7 +64,7 @@ async def main():
 
     bot = Bot(
         token=config.Telegram.token,
-        parse_mode='html',
+        default=DefaultBotProperties(parse_mode='html')
     )
 
     connection = await aiormq.connect(config.AMQP.uri)

@@ -3,6 +3,7 @@ import sys
 sys.path.append('..')
 
 import asyncio
+from aiogram.client.default import DefaultBotProperties
 from datetime import datetime, timedelta
 
 import pytz
@@ -63,7 +64,7 @@ async def main():
 
     bot = Bot(
         token=config.Telegram.token,
-        parse_mode='html',
+        default=DefaultBotProperties(parse_mode='html')
     )
     config.bot = bot
 

@@ -1,7 +1,5 @@
 import sys
 
-from loguru import logger
-
 sys.path.append('..')
 
 import asyncio
@@ -11,8 +9,10 @@ from aiohttp import web
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
+from aiogram.client.default import DefaultBotProperties
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
+from loguru import logger
 import brocker
 import config
 import db
@@ -29,7 +29,7 @@ dp = Dispatcher(storage=storage)
 
 bot = Bot(
     token=config.Telegram.token,
-    parse_mode='html',
+    default=DefaultBotProperties(parse_mode='html')
 )
 config.bot = bot
 

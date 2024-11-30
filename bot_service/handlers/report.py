@@ -1,5 +1,6 @@
 from aiogram import Router, Bot
 from aiogram import types
+from aiogram.client.default import DefaultBotProperties
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
@@ -12,7 +13,7 @@ router = Router()
 
 report_bot = Bot(
     token=config.Telegram.admin_token,
-    parse_mode='html',
+    default=DefaultBotProperties(parse_mode='html'),
 )
 
 

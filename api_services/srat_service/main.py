@@ -8,6 +8,7 @@ from typing import Optional
 from aiogram import Bot
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
+from aiogram.client.default import DefaultBotProperties
 from starlette.responses import JSONResponse
 
 import config
@@ -22,7 +23,7 @@ setup_logger.__init__("API srat")
 
 bot = Bot(
     token=config.Telegram.token,
-    parse_mode='html',
+    default=DefaultBotProperties(parse_mode='html')
 )
 config.bot = bot
 

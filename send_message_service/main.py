@@ -8,6 +8,7 @@ import time
 
 import aiormq
 from aiogram import Bot
+from aiogram.client.default import DefaultBotProperties
 from aiormq.abc import DeliveredMessage
 from loguru import logger
 
@@ -52,7 +53,7 @@ async def main():
 
     bot = Bot(
         token=config.Telegram.token,
-        parse_mode='markdown',
+        default=DefaultBotProperties(parse_mode='markdown')
     )
 
     connection = await aiormq.connect(config.AMQP.uri)
