@@ -10,10 +10,9 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from starlette.responses import JSONResponse
 
-import brocker
 import config
-import db
-import api_middlewares
+import middlewares
+from lifespan import Lifespan
 import setup_logger
 from db.ToiletSessions import SretSession, SretType
 from db.User import User
@@ -21,24 +20,18 @@ from utils import send_srat_notification
 
 setup_logger.__init__("API srat")
 
-app = FastAPI(docs_url=None, redoc_url=None)
-api_middlewares.setup(app, True)
+bot = Bot(
+    token=config.Telegram.token,
+    parse_mode='html',
+)
+config.bot = bot
+
+app = FastAPI(docs_url=None, redoc_url=None, lifespan=Lifespan(start_db=True, start_brocker=True))
+middlewares.setup(app, True)
 
 
 class SratModel(BaseModel):
     status: Optional[SretType]
-
-
-@app.on_event("startup")
-async def startup_event():
-    await db.init()
-    await brocker.init()
-
-    bot = Bot(
-        token=config.Telegram.token,
-        parse_mode='html',
-    )
-    config.bot = bot
 
 
 @app.get('/api/srat/', status_code=200, response_model=SratModel)
