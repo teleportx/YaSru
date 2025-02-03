@@ -15,6 +15,8 @@ bot_me: User
 storage: RedisStorage
 loop: AbstractEventLoop
 
+sentry_dsn = environ.get('SENTRY_DSN')
+
 
 class Telegram:
     token = environ.get('TOKEN')
@@ -80,8 +82,3 @@ class Webhook:
     path = environ.get('WEBHOOK_PATH')
     secret = environ.get('WEBHOOK_SECRET')
     remote_host = environ.get('WEBHOOK_REMOTE_HOST')
-
-
-class Sentry:
-    use_sentry = True
-    dsn = environ.get('SENTRY_DSN')

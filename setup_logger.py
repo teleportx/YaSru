@@ -2,12 +2,9 @@ import gzip
 import logging
 import os
 import platform
-from datetime import datetime
 from pathlib import Path
 
 import sentry_sdk
-from aiogram import Bot
-from aiogram.types import BufferedInputFile
 from loguru import logger
 
 import config
@@ -79,9 +76,9 @@ def __init__(__project_name: str):
     logger.info(f"Python version: {platform.python_version()}")
     logger.info(f"Running on: {platform.system()} {platform.release()} ({os.name})")
 
-    if config.Sentry.use_sentry:
+    if not config.DEBUG and config.sentry_dsn is not None:
         sentry_sdk.init(
-            dsn=config.Sentry.dsn,
+            dsn=config.sentry_dsn,
             traces_sample_rate=1.0,
             profiles_sample_rate=1.0,
             environment=project_name_u
