@@ -42,9 +42,9 @@ class Constants:
 
     throttling_time = 0.5  # in seconds
     throttling_time_actions = (  # in minutes
-        (5, 2, 2),
-        (2, 1, 1),
-        (1, 1, 1),
+        (2.5, 1, 1),
+        (1, 0.5, 0.5),
+        (0.5, 0.5, 0.5),
     )  # row - last action, column - now action. See SretActions enum to get names.
 
 
