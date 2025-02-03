@@ -6,7 +6,7 @@ from aiogram import types
 import config
 from db.User import User, Ban
 from bot_service.middlewares.util import UtilMiddleware
-
+from utils.verify_name import verify_symbol
 
 first_join_message_text = '''Добро пожаловать в УРА!
 
@@ -30,7 +30,8 @@ class AuthMiddleware(UtilMiddleware, ABC):
         db_user = await User.filter(uid=user.id).get_or_none()
 
         if db_user is None:
-            db_user = await User.create(uid=user.id, name=user.full_name)
+            name = ''.join([el for el in user.full_name if verify_symbol(el)])
+            db_user = await User.create(uid=user.id, name=name)
             try:
                 await config.bot.send_message(user.id, first_join_message_text)
 
