@@ -122,7 +122,6 @@ async def send(user: User, sret: int):
     except KeyError:
         ...
 
-    await message_sender.send_message(config.Telegram.global_channel_id, user.uid, self_message.message_id, 1)
     for send_to in users_send:
         await message_sender.send_message(send_to.uid, user.uid, self_message.message_id, 1)
 

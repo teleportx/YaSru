@@ -21,7 +21,6 @@ class Telegram:
     admin_token = environ.get('TOKEN_ADMIN')
 
     admin_group_id = environ.get('ADMIN_GROUP_ID')
-    global_channel_id = environ.get('GLOBAL_CHANNEL_ID')
 
     admin_token_report_thread = environ.get('ADMIN_GROUP_REPORT_THREAD')
 
