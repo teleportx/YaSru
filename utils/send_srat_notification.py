@@ -44,6 +44,10 @@ async def verify_action(user: User, sret: int, message: Optional[types.Message] 
             wait_time = round((throttling_time - (now - last_session.end)).total_seconds())
             await message.reply(f'Вы совершаете действия слишком часто!\n'
                                 f'Подождите еще <b>{wait_time} секунд</b>')
+
+        if config.DEBUG:
+            logger.warning('Throttle srat action but has not effect because debug mode enabled.')
+            return True
         return False
 
     return True
